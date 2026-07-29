@@ -32,7 +32,7 @@ pub fn inner_main() -> Result<(), SinvTextconvError> {
     let args: CliArgs = CliArgs::parse();
 
     if !args.file.is_file() {
-        return Err(SinvTextconvError::ArgNotAFile);
+        return Err(SinvTextconvError::ArgNotAFile(format!("{}",args.file.display())));
     }
 
     let file = File::open(args.file)?;
