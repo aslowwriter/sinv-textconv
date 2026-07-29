@@ -19,12 +19,12 @@ pub enum SinvTextconvError {
 
 fn main() -> Result<(), SinvTextconvError> {
     let res = inner_main();
-    // not the most elegant of solutions, but we just want to exit 
+    // not the most elegant of solutions, but we just want to exit
     // cleanly if the pipe is closed prematurely since that's perfectly acceptable behavior so
     // we have to do this little wrapper
     // if anything else goes wrong we'll just exit in whatever way
     // is appropriate
-    if let Err(SinvTextconvError::IoError(e)) = inner_main() {
+    if let Err(SinvTextconvError::IoError(ref e)) = res {
         if e.kind() == ErrorKind::BrokenPipe {
             Ok(())
         } else {
