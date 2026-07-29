@@ -36,7 +36,7 @@ fig, ax = plt.subplots(figsize=(12, 6))
 hbars = ax.barh(df.index, df['means'], xerr=df['var'], align='center')
 ax.invert_yaxis()
 ax.set_xlabel('Time (ms)')
-ax.set_title('Parsing the linux kernel documentation `objects.inv` (lower is better)')
+ax.set_title('Runtime of `textconv` of The linux Kernel documentation `objects.inv` (lower is better)')
 
 ax.grid(which="minor", color="0.9")
 ax.xaxis.grid()
