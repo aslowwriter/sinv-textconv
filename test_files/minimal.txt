@@ -1,0 +1,6 @@
+# Sphinx inventory version 2
+# Project: sinv-textconv 
+# Version: 1
+# The remainder of this file is compressed using zlib.
+foo std:doc -1 foo.html -
+baz std:doc -1 baz.html -
