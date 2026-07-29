@@ -1,21 +1,14 @@
+mod cli;
+mod error;
+
+use clap::Parser;
 use flate2::bufread::ZlibDecoder;
 use std::fs::File;
+use std::io;
 use std::io::{BufRead, BufReader, ErrorKind, Write};
-use std::path::PathBuf;
-use std::{env, io};
-use thiserror::Error;
 
-#[derive(Error, Debug)]
-pub enum SinvTextconvError {
-    #[error("expected only one argument, got {0}")]
-    IncorrectNumberArguments(usize),
-
-    #[error("supplied path was not a file")]
-    ArgNotAFile,
-
-    #[error("Io error")]
-    IoError(#[from] io::Error),
-}
+use crate::cli::CliArgs;
+use crate::error::SinvTextconvError;
 
 fn main() -> Result<(), SinvTextconvError> {
     let res = inner_main();
@@ -36,21 +29,13 @@ fn main() -> Result<(), SinvTextconvError> {
 }
 
 pub fn inner_main() -> Result<(), SinvTextconvError> {
-    let args: Vec<String> = env::args().collect();
+    let args: CliArgs = CliArgs::parse();
 
-    if args.len() != 2 {
-        return Err(SinvTextconvError::IncorrectNumberArguments(args.len() - 1));
-    }
-
-    // unwrap is safe, we just checked the length is exactly 2
-    #[allow(clippy::unwrap_used)]
-    let file_path = PathBuf::from(args.get(1).unwrap());
-
-    if !file_path.is_file() {
+    if !args.file.is_file() {
         return Err(SinvTextconvError::ArgNotAFile);
     }
 
-    let file = File::open(file_path)?;
+    let file = File::open(args.file)?;
     let stdout = io::stdout();
     let mut stdout_handle = stdout.lock();
 
