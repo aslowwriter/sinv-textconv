@@ -77,3 +77,18 @@ ci:
     just lint
     just check
     just test
+
+download-lkd-objects:
+    curl -Lo lkd.inv https://docs.kernel.org/objects.inv 
+
+compile-benches:
+    cargo build --release
+
+run-benchmark: download-lkd-objects compile-benches
+    hyperfine -N "sphobjinv-textconv lkd.inv" -n "sphobjinv-textconv (python)" --reference "target/release/sinv-textconv lkd.inv" --reference-name "sinv-textconv (rust)"  --export-json timing.json --warmup 50 --min-runs 100 --time-unit millisecond
+
+render-comparison:
+    uv run benchmarks/render.py timing.json comparison.webp
+
+benchmark: run-benchmark render-comparison
+
