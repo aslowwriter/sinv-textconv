@@ -19,8 +19,8 @@ This project is directly modeled after [sphobjinv-textconv](https://sphobjinv.re
 - [Installation](#installation)
 - [Usage](#usage)
 - [Benchmarks](#benchmarks)
-- [FAQ](#FAQ)
-- [Acknowledgements](#Acknowledgements)
+- [FAQ](#faq)
+- [Acknowledgements](#acknowledgements)
 
 ## Features
 
