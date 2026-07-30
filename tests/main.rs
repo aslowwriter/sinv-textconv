@@ -39,6 +39,27 @@ pub fn exits_successfully_on_closed_pipe() -> Result<(), io::Error> {
 }
 
 #[test]
+pub fn errors_on_multiple_input() -> Result<(), io::Error> {
+    let output = CargoCommand::cargo_bin(pkg_name!())
+        .unwrap()
+        .arg("foo")
+        .arg("bar")
+        .output()?;
+
+    assert!(!output.status.success());
+
+    Ok(())
+}
+#[test]
+pub fn errors_on_no_input() -> Result<(), io::Error> {
+    let output = CargoCommand::cargo_bin(pkg_name!()).unwrap().output()?;
+
+    assert!(!output.status.success());
+
+    Ok(())
+}
+
+#[test]
 pub fn correct_output() -> Result<(), io::Error> {
     let path = PathBuf::from("inv_files/minimal.inv");
     let expected: String = fs::read_to_string("inv_files/minimal.txt")?;
