@@ -3,7 +3,6 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![codecov](https://codecov.io/gh/aslowwriter/sinv-textconv/branch/main/graph/badge.svg)](https://codecov.io/gh/aslowwriter/sinv-textconv)
 [![crates.io](https://img.shields.io/crates/v/sinv-textconv)](https://crates.io/crates/sinv-textconv)
-[![Docs.rs](https://docs.rs/sinv-textconv/badge.svg)](https://docs.rs/sinv-textconv)
 
 
 A fast git textconv driver for Sphinx inventory files (`objects.inv`)
