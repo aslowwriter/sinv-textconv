@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.1](https://github.com/aslowwriter/sinv-textconv/compare/v0.1.0...v0.1.1) - 2026-07-30
+
+### Other
+
+- add test for too incorrect args
+- fix toc in readme
+
 ## [v0.1.0]
 
 
