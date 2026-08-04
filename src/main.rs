@@ -60,10 +60,18 @@ pub fn inner_main() -> Result<(), SinvTextconvError> {
     buffered_header_reader.read_line(&mut compression_line)?;
     write!(stdout_handle, "{compression_line}")?;
 
-    let zlib_reader = BufReader::new(ZlibDecoder::new(buffered_header_reader));
+    if compression_line.contains("zlib") {
+        let zlib_reader = BufReader::new(ZlibDecoder::new(buffered_header_reader));
 
-    for line in zlib_reader.lines() {
-        writeln!(stdout_handle, "{}", line?)?;
+        for line in zlib_reader.lines() {
+            writeln!(stdout_handle, "{}", line?)?;
+        }
+    } else if compression_line.contains("plain-text") {
+        for line in buffered_header_reader.lines() {
+            writeln!(stdout_handle, "{}", line?)?;
+        }
+    } else {
+        return Err(SinvTextconvError::UnknownEncoding(compression_line));
     }
 
     Ok(())

@@ -11,4 +11,7 @@ pub enum SinvTextconvError {
 
     #[error("Io error")]
     IoError(#[from] io::Error),
+
+    #[error("Unknown encoding: {0}")]
+    UnknownEncoding(String),
 }
