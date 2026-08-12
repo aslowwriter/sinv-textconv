@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.2](https://github.com/aslowwriter/sinv-textconv/compare/v0.1.1...v0.1.2) - 2026-08-12
+
+### Added
+
+- *(ci)* bring back auto release plz
+- add pypi publishing
+- add ability to read plaintext files too
+
+### Other
+
+- update install instructions in README
+
 ## [0.1.1](https://github.com/aslowwriter/sinv-textconv/compare/v0.1.0...v0.1.1) - 2026-07-30
 
 ### Other
