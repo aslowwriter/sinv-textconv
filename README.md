@@ -3,13 +3,15 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![codecov](https://codecov.io/gh/aslowwriter/sinv-textconv/branch/main/graph/badge.svg)](https://codecov.io/gh/aslowwriter/sinv-textconv)
 [![crates.io](https://img.shields.io/crates/v/sinv-textconv)](https://crates.io/crates/sinv-textconv)
+[![PyPI Version](https://img.shields.io/pypi/v/sinv-textconv)](https://pypi.org/project/sinv-textconv/)
+
 
 
 A fast git textconv driver for Sphinx inventory files (`objects.inv`)
 
-`sinv-textconv` is a cli program for use as a `git textconv` option to view diffs between Sphinx inventory files (typically called `objects.inv`). `textconv` is a git configuration option to instruct git to use a certain program to convert binary files to plain text so that a diff can be displayed. 
+`sinv-textconv` is a cli program for use as a `git textconv` option to view diffs between Sphinx inventory files (typically called `objects.inv`). `textconv` is a git configuration option to instruct git to use a certain program to convert binary files to plain text so that a diff can be displayed.
 
-If you keep `objects.inv` in your history, (or want to diff them yourself) this program offers a fast and convenient way to do that. 
+If you keep `objects.inv` in your history, (or want to diff them yourself) this program offers a fast and convenient way to do that.
 
 This project is directly modeled after [sphobjinv-textconv](https://sphobjinv.readthedocs.io/en/stable/cli/textconv.html), but we are around 15x times faster on a benchmark of the linux kernel docs inventory file. (see [the benchmark section](#benchmarks))
 
@@ -26,21 +28,34 @@ This project is directly modeled after [sphobjinv-textconv](https://sphobjinv.re
 
 `sinv-textconv` is kept intentionally minimal in functionality so it is as light weight as possible and is optimized for its intended use case instead for cli convenience.
 
-Specifically this means that: 
+Specifically this means that:
 1. It takes _exactly_ one argument, that being the path to an inventory file, and it will output the contents of that file in plaintext over stdout
 2. The contents of the file are NOT parsed, and instead the entire zlib content is dumped directly into stdout. This is because it's not uncommon for Sphinx to produce references that don't conform to the format and thus can't be parsed (like happens in the linux kernel docs). You might still want to see the diff for these, hence the decision to not parse the contents.
 
-If you are looking for an application that is more optimized for direct user interaction and does parse the contents please see [sinv](https://github.com/aslowwriter/sinv). I've decided to publish these as separate programs mostly to keep the cli of `sinv` better suited for direct user interaction, and the git `textconv` cli comes with somewhat strict requirements. 
+If you are looking for an application that is more optimized for direct user interaction and does parse the contents please see [sinv](https://github.com/aslowwriter/sinv). I've decided to publish these as separate programs mostly to keep the cli of `sinv` better suited for direct user interaction, and the git `textconv` cli comes with somewhat strict requirements.
 
 
 ## Installation
 
-Currently the only way to install it is through cargo:
 
-```bash
+You can install the binary simply form PyPi using your favourite method:
+
+```
+uv tool install sinv-textconv
+```
+
+If you prefer you can also install it from crates.io:
+
+
+```
 cargo install sinv-textconv
 ```
 
+If you wish you can also of course build it from source:
+
+```
+cargo install --git https://github.com/aslowwriter/sinv-textconv
+```
 ## Usage
 
 After you installed the program, you can have git use it automatically as a "diff driver" by adding the following lines to a `.gitconfig` (can be either user, system, or repo-specific):
@@ -56,15 +71,15 @@ After that you'll need to associate a file glob with that driver, by adding thes
 *.inv diff=objects_inv
 ```
 
-Then any diff you show through other means should be able to show you a nice plaintext diffs of the files. 
+Then any diff you show through other means should be able to show you a nice plaintext diffs of the files.
 
-If you want to simply inspect the file you can do that by piping it into your favourite pager, like normal: 
+If you want to simply inspect the file you can do that by piping it into your favourite pager, like normal:
 
 ```bash
 sinv-textconv foo.inv | less
 ```
 
-In case you want to do one-off diffs of files that aren't in a repository you can use process substitution: 
+In case you want to do one-off diffs of files that aren't in a repository you can use process substitution:
 
 ```bash
 diff <(sinv-textconv foo.inv) <(sinv-texconv bar.inv)
@@ -114,5 +129,3 @@ A: Currently the project is mostly "done." That means that it does what I need i
 ## Acknowledgements
 
 Thank you to Brian Skinn et al. for all the research they did into the format and for writing [sphobjinv](https://sphobjinv.readthedocs.io/en/stable/syntax.html) which this program is directly modeled after.
-
-
