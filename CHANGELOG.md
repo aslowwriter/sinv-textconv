@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.3](https://github.com/aslowwriter/sinv-textconv/compare/v0.1.2...v0.1.3) - 2026-08-13
+
+### Other
+
+- *(deps)* bump actions/setup-python from 6 to 7 ([#5](https://github.com/aslowwriter/sinv-textconv/pull/5))
+
 ## [0.1.2](https://github.com/aslowwriter/sinv-textconv/compare/v0.1.1...v0.1.2) - 2026-08-12
 
 ### Added
